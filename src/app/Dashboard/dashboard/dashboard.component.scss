@@ -1,64 +1,358 @@
-.dashboard-toolbar {
+.dashboard-layout {
   display: flex;
-  flex-wrap: wrap;
-  padding: 0 24px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  min-height: 64px;
-  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, #2c3e50 0%, #1a252f 100%);
+  color: white;
+  padding: 25px 20px;
+  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    width: 250px;
+    transform: translateX(-100%);
+    
+    &.sidebar-open {
+      transform: translateX(0);
+    }
+  }
 }
 
 .app-title {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #fff;
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ecf0f1;
+  letter-spacing: 0.5px;
 }
 
-.spacer {
-  flex: 1 1 auto; /* pushes right section to the edge */
-}
-
-.user-info {
+.user-name-box {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.user-name {
-  font-weight: 500;
-  font-size: 1rem;
-  color: #fff;
-}
-
-/* Responsive adjustments for mobile devices */
-@media (max-width: 600px) {
-  .dashboard-toolbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px 16px;
-    min-height: auto;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: #3498db;
   }
+  
+  span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #ecf0f1;
+  }
+}
 
+.balance-box {
+  background: rgba(46, 204, 113, 0.1);
+  border: 1px solid rgba(46, 204, 113, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  text-align: center;
+  
+  .label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2ecc71;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    
+    &:hover {
+      background: rgba(52, 152, 219, 0.2);
+      color: white;
+      transform: translateX(5px);
+    }
+    
+    &.active {
+      background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+      
+      mat-icon {
+        color: white;
+      }
+    }
+    
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.3s ease;
+    }
+  }
+}
+
+/* Main Content Area */
+.main-area {
+  flex: 1;
+  margin-left: 280px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
+}
+
+.dashboard-toolbar {
+  background: white !important;
+  color: #2c3e50 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 24px;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  
+  /* Welcome user section */
+  .welcome-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    mat-icon {
+      color: #3498db;
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+    
+    .welcome-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #2c3e50;
+      
+      .username {
+        font-weight: 600;
+        color: #3498db;
+      }
+    }
+  }
+  
   .spacer {
-    display: none; /* remove spacer in column layout */
+    flex: 1 1 auto;
   }
-
-  .user-info {
-    margin-top: 8px;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 8px;
-  }
-
-  .user-name {
-    font-size: 0.95rem;
-  }
-
+  
   button {
-    font-size: 0.85rem;
-    padding: 4px 12px;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
   }
+}
 
-  .app-title {
-    font-size: 1.3rem;
+.content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #f5f7fa;
+  
+  @media (max-width: 768px) {
+    padding: 20px 15px;
+  }
+  
+  @media (max-width: 576px) {
+    padding: 15px 10px;
+  }
+}
+
+/* Mobile Sidebar Toggle */
+.mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 101;
+  background: #3498db;
+  color: white;
+  
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-layout {
+    position: relative;
+  }
+  
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    
+    &.sidebar-open {
+      transform: translateX(0);
+    }
+  }
+  
+  .main-area {
+    width: 100%;
+    margin-left: 0;
+  }
+  
+  /* FIX: Add proper spacing between menu button and toolbar content */
+  .dashboard-toolbar {
+    padding-left: 70px !important; /* Add space for menu button */
+    padding-right: 16px;
+    height: 70px;
+    
+    /* FIX: Adjust welcome message layout */
+    .welcome-user {
+      mat-icon {
+        display: none; /* Hide icon on mobile to save space */
+      }
+      
+      .welcome-text {
+        font-size: 0.95rem;
+        line-height: 1.2;
+        
+        .username {
+          font-size: 1rem;
+          display: block;
+          margin-top: 2px;
+        }
+      }
+    }
+    
+    button {
+      padding: 6px 16px;
+      font-size: 0.9rem;
+      
+      mat-icon {
+        margin-right: 6px;
+        font-size: 18px;
+      }
+    }
+  }
+  
+  /* FIX: Position mobile toggle button better */
+  .mobile-toggle {
+    top: 18px;
+    left: 20px;
+    z-index: 102;
+    background: #3498db;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Overlay when sidebar is open on mobile */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    
+    &.active {
+      display: block;
+    }
+  }
+}
+
+/* Animation for page transitions */
+.router-outlet-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bdc3c7;
+  border-radius: 10px;
+  
+  &:hover {
+    background: #95a5a6;
+  }
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.5);
   }
 }

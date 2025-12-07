@@ -5,16 +5,24 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatToolbarModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    RouterModule,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
   userName: string | null = '';
+  isSidebarOpen = false;
   constructor(private router: Router, private authService: AuthService) {}
   ngOnInit() {
     // Get logged-in user name from localStorage
@@ -42,5 +50,14 @@ export class DashboardComponent {
         alert(err?.error?.message || 'Logout failed, please try again.');
       },
     });
+  }
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  closeSidebar() {
+    if (window.innerWidth <= 768) {
+      this.isSidebarOpen = false;
+    }
   }
 }

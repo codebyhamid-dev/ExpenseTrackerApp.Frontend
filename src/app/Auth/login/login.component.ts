@@ -58,10 +58,8 @@ export class LoginComponent {
 
         // Save user info
         const user = res.user;
-        localStorage.setItem('userId', user.id);
         localStorage.setItem('Name', user.name);
-        localStorage.setItem('email', user.email);
-        localStorage.setItem('userName', user.username);
+        localStorage.setItem('Email', user.email);
 
         alert('User logged in successfully!');
         this.router.navigate(['/dashboard']);

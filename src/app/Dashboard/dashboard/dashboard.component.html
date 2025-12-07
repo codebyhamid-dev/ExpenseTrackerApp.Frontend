@@ -1,16 +1,83 @@
-<mat-toolbar color="primary" class="dashboard-toolbar">
-  <!-- Left: App Title -->
-  <span class="app-title">Expense Tracker</span>
+<div class="dashboard-layout">
+  <!-- Mobile Toggle Button -->
+  <button mat-icon-button class="mobile-toggle" (click)="toggleSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
 
-  <!-- Spacer pushes content to right -->
-  <span class="spacer"></span>
+  <!-- Sidebar Overlay (Mobile only) -->
+  <div
+    class="sidebar-overlay"
+    [class.active]="isSidebarOpen"
+    (click)="closeSidebar()"
+  ></div>
 
-  <!-- Right: User info + Logout -->
-  <div class="user-info">
-    <mat-icon>account_circle</mat-icon>
-    <span *ngIf="userName" class="user-name">{{ userName }}</span>
-    <button mat-raised-button color="accent" (click)="OnLogout()">
-      Logout
+  <!-- Sidebar -->
+  <div class="sidebar mat-elevation-z4" [class.sidebar-open]="isSidebarOpen">
+    <!-- Close button for mobile -->
+    <button
+      mat-icon-button
+      class="sidebar-close"
+      (click)="closeSidebar()"
+      *ngIf="isSidebarOpen"
+    >
+      <mat-icon>close</mat-icon>
     </button>
+
+    <!-- App Title -->
+    <h2 class="app-title">Expense Tracker</h2>
+
+    <!-- User Name -->
+    <div class="user-name-box mb-3">
+      <mat-icon>account_circle</mat-icon>
+      <span>{{ userName }}</span>
+    </div>
+
+    <!-- Balance -->
+    <div class="balance-box mb-4">
+      <p class="label">Balance</p>
+      <p class="amount">$5,000</p>
+    </div>
+
+    <!-- Navigation -->
+    <!-- Change to relative paths for child routes -->
+    <nav class="menu">
+      <a routerLink="home" routerLinkActive="active" (click)="closeSidebar()">
+        <mat-icon>dashboard</mat-icon> Dashboard
+      </a>
+      <a
+        routerLink="transactions"
+        routerLinkActive="active"
+        (click)="closeSidebar()"
+      >
+        <mat-icon>receipt_long</mat-icon> Transactions
+      </a>
+    </nav>
   </div>
-</mat-toolbar>
+
+  <!-- Main Content -->
+  <div class="main-area">
+    <!-- Top Toolbar -->
+    <mat-toolbar color="primary" class="dashboard-toolbar">
+      <div class="welcome-user">
+        <mat-icon>person</mat-icon>
+        <div class="welcome-text">
+          Welcome, <span class="username">{{ userName }}</span>
+        </div>
+      </div>
+
+      <span class="spacer"></span>
+
+      <button mat-raised-button color="accent" (click)="OnLogout()">
+        Logout
+      </button>
+    </mat-toolbar>
+
+    <!-- Page content - ONLY router-outlet -->
+    <div class="content">
+      <div class="router-outlet-content">
+        <!-- This will render HomeComponent or TransactionComponent -->
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,8 @@ import { RegisterComponent } from './Auth/register/register.component';
 import { DashboardComponent } from './Dashboard/dashboard/dashboard.component';
 import { noAuthGuard } from './no-auth.guard';
 import { authGuard } from './auth.guard';
+import { TransactionComponent } from './Dashboard/transaction/transaction.component';
+import { HomeComponent } from './Dashboard/home/home.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
@@ -14,8 +16,13 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    component: DashboardComponent, // This is the layout/shell
     canActivate: [authGuard],
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirect to home
+      { path: 'home', component: HomeComponent }, // Dashboard content
+      { path: 'transactions', component: TransactionComponent }, // Transactions content
+    ],
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' },
