@@ -1,0 +1,52 @@
+//cards styles
+.stats-card {
+  padding: 20px;
+  text-align: center;
+  border-radius: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.stats-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.stats-card h5 {
+  margin-top: 10px;
+  font-weight: 500;
+  color: white;
+}
+
+.stats-card h2 {
+  font-weight: 700;
+  margin-top: 5px;
+  color: white;
+}
+
+.icon-box {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 28px;
+}
+
+/* Custom Card Themes */
+.income-card .icon-box {
+  background-color: #28a745;
+}
+.expense-card .icon-box {
+  background-color: #dc3545;
+}
+.balance-card .icon-box {
+  background-color: #007bff;
+}
+.transaction-card .icon-box {
+  background-color: #6f42c1;
+}
+// End of cards styles

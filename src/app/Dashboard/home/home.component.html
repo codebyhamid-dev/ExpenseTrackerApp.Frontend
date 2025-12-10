@@ -1,1 +1,49 @@
-<p>home works!</p>
+<div class="container mt-4">
+  <!-- Dashboard Cards -->
+  <div class="row g-4">
+    <!-- INCOME -->
+    <div class="col-md-3">
+      <mat-card class="stats-card income-card">
+        <div class="icon-box">
+          <mat-icon>arrow_circle_up</mat-icon>
+        </div>
+        <h5>Income</h5>
+        <h2>{{ dashboardCards?.totalIncome | currency }}</h2>
+      </mat-card>
+    </div>
+
+    <!-- EXPENSE -->
+    <div class="col-md-3">
+      <mat-card class="stats-card expense-card">
+        <div class="icon-box">
+          <mat-icon>arrow_circle_down</mat-icon>
+        </div>
+        <h5>Expense</h5>
+        <h2>{{ dashboardCards?.totalExpense | currency }}</h2>
+      </mat-card>
+    </div>
+
+    <!-- BALANCE -->
+    <div class="col-md-3">
+      <mat-card class="stats-card balance-card">
+        <div class="icon-box">
+          <mat-icon>account_balance_wallet</mat-icon>
+        </div>
+        <h5>Balance</h5>
+        <h2>{{ dashboardCards?.balance | currency }}</h2>
+      </mat-card>
+    </div>
+
+    <!-- TOTAL TRANSACTIONS -->
+    <div class="col-md-3">
+      <mat-card class="stats-card transaction-card">
+        <div class="icon-box">
+          <mat-icon>list_alt</mat-icon>
+        </div>
+        <h5>Transactions</h5>
+        <h2>{{ dashboardCards?.totalTransactions }}</h2>
+      </mat-card>
+    </div>
+  </div>
+  <!-- End of Dashboard Cards -->
+</div>

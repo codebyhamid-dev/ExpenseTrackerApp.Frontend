@@ -6,6 +6,8 @@ import { AuthService } from '../../services/auth.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { TransactionService } from '../../services/transaction.service';
+import { TransactionDashboardCardsDto } from '../../../interfaces/transactionInterface';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,12 +23,25 @@ import { RouterModule } from '@angular/router';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
+  dashboardCards?: TransactionDashboardCardsDto; //interface
   userName: string | null = '';
   isSidebarOpen = false;
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private transactionService: TransactionService
+  ) {}
   ngOnInit() {
     // Get logged-in user name from localStorage
     this.userName = localStorage.getItem('Name');
+    this.transactionService.getDashboardCards().subscribe({
+      next: (res) => {
+        this.dashboardCards = res;
+      },
+      error: (err) => {
+        console.error('Error loading dashboard stats:', err);
+      },
+    });
   }
 
   OnLogout() {
