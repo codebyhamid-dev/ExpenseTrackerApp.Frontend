@@ -1,8 +1,7 @@
-<div class="container mt-4">
-  <!-- Dashboard Cards -->
-  <div class="row g-4">
-    <!-- INCOME -->
-    <div class="col-md-3">
+<div class="dashboard-container container mt-4">
+  <!-- Section 1: Dashboard Cards -->
+  <div class="cards-section row g-4">
+    <div class="col-md-3 col-sm-6">
       <mat-card class="stats-card income-card">
         <div class="icon-box">
           <mat-icon>arrow_circle_up</mat-icon>
@@ -12,8 +11,7 @@
       </mat-card>
     </div>
 
-    <!-- EXPENSE -->
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-6">
       <mat-card class="stats-card expense-card">
         <div class="icon-box">
           <mat-icon>arrow_circle_down</mat-icon>
@@ -23,8 +21,7 @@
       </mat-card>
     </div>
 
-    <!-- BALANCE -->
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-6">
       <mat-card class="stats-card balance-card">
         <div class="icon-box">
           <mat-icon>account_balance_wallet</mat-icon>
@@ -34,8 +31,7 @@
       </mat-card>
     </div>
 
-    <!-- TOTAL TRANSACTIONS -->
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-6">
       <mat-card class="stats-card transaction-card">
         <div class="icon-box">
           <mat-icon>list_alt</mat-icon>
@@ -45,5 +41,23 @@
       </mat-card>
     </div>
   </div>
-  <!-- End of Dashboard Cards -->
+
+  <!-- Section 2: Pie Chart -->
+  <div class="chart-section row mt-5">
+    <div class="col-12">
+      <mat-card class="pie-chart-card">
+        <h4>Total Expenses</h4>
+        <ngx-charts-pie-chart
+          [view]="[chartWidth, 400]"
+          [results]="pieChartData"
+          [legend]="true"
+          [labels]="true"
+          [doughnut]="true"
+          [animations]="true"
+          [scheme]="colorScheme"
+        >
+        </ngx-charts-pie-chart>
+      </mat-card>
+    </div>
+  </div>
 </div>

@@ -4,3 +4,8 @@ export interface TransactionDashboardCardsDto {
   balance?: number;
   totalTransactions?: number;
 }
+export interface DashboardChartDto {
+  category: string;
+  amount: number;
+  percentage: number;
+}

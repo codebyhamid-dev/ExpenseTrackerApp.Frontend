@@ -1,52 +1,140 @@
-//cards styles
-.stats-card {
-  padding: 20px;
-  text-align: center;
-  border-radius: 16px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
-
-.stats-card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.stats-card h5 {
-  margin-top: 10px;
-  font-weight: 500;
-  color: white;
-}
-
-.stats-card h2 {
-  font-weight: 700;
-  margin-top: 5px;
-  color: white;
-}
-
-.icon-box {
-  width: 55px;
-  height: 55px;
+.dashboard-container {
+  max-width: 1200px;
   margin: 0 auto;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 28px;
-}
+  padding: 0 10px;
 
-/* Custom Card Themes */
-.income-card .icon-box {
-  background-color: #28a745;
+  /* ------------------- Cards Section ------------------- */
+  .cards-section {
+    margin-bottom: 3rem;
+
+    .stats-card {
+      padding: 20px;
+      text-align: center;
+      border-radius: 16px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      color: white;
+
+      &:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .icon-box {
+        width: 55px;
+        height: 55px;
+        margin: 0 auto 10px auto;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        color: white;
+        transition: transform 0.3s ease;
+      }
+
+      .icon-box:hover {
+        transform: scale(1.1);
+      }
+
+      h5 {
+        margin-top: 10px;
+        font-weight: 500;
+      }
+      h2 {
+        margin-top: 5px;
+        font-weight: 700;
+        font-size: 1.7rem;
+      }
+    }
+
+    .income-card .icon-box {
+      background-color: #28a745;
+    }
+    .expense-card .icon-box {
+      background-color: #dc3545;
+    }
+    .balance-card .icon-box {
+      background-color: #007bff;
+    }
+    .transaction-card .icon-box {
+      background-color: #6f42c1;
+    }
+  }
+  /* ------------------- Chart Section ------------------- */
+
+  .chart-section {
+    .pie-chart-card {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+      h4 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 500;
+        font-size: 1.3rem;
+        color: #333;
+      }
+    }
+
+    ngx-charts-pie-chart {
+      width: 100%;
+      height: auto;
+
+      /* Slice styles */
+      .arc {
+        cursor: pointer;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+
+      .arc:hover {
+        transform: scale(1.05); /* subtle hover zoom for interactivity */
+        opacity: 0.85;
+      }
+
+      /* Slice labels */
+      .label text {
+        font-size: 1.1rem !important;
+        font-weight: 600;
+        fill: #fff !important; /* white for better contrast on colored slices */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Legend */
+      .legend-label {
+        font-size: 1rem !important;
+        font-weight: 400;
+        fill: #111 !important;
+        max-width: 300px;
+        white-space: normal;
+      }
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    ngx-charts-pie-chart {
+      .label text {
+        font-size: 1rem !important;
+      }
+      .legend-label {
+        font-size: 1rem !important;
+        max-width: 200px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    ngx-charts-pie-chart {
+      .label text {
+        font-size: 0.95rem !important;
+      }
+      .legend-label {
+        font-size: 0.95rem !important;
+        max-width: 150px;
+      }
+    }
+  }
 }
-.expense-card .icon-box {
-  background-color: #dc3545;
-}
-.balance-card .icon-box {
-  background-color: #007bff;
-}
-.transaction-card .icon-box {
-  background-color: #6f42c1;
-}
-// End of cards styles

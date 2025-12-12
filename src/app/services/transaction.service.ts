@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TransactionDashboardCardsDto } from '../../interfaces/transactionInterface';
+import {
+  DashboardChartDto,
+  TransactionDashboardCardsDto,
+} from '../../interfaces/transactionInterface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +18,12 @@ export class TransactionService {
   getDashboardCards(): Observable<TransactionDashboardCardsDto> {
     return this.http.get<TransactionDashboardCardsDto>(
       `${this.appUrl}get-transaction-dashboard-cards`
+    );
+  }
+
+  getDashboardChartCards(): Observable<DashboardChartDto[]> {
+    return this.http.get<DashboardChartDto[]>(
+      `${this.appUrl}get-dashboard-chart`
     );
   }
 }
