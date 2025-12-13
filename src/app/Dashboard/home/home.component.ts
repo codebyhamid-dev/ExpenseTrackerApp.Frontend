@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import {
   DashboardChartDto,
   TransactionDashboardCardsDto,
@@ -7,7 +7,11 @@ import { TransactionService } from '../../services/transaction.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
+import {
+  LegendPosition,
+  NgxChartsModule,
+  ScaleType,
+} from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-home',
@@ -22,47 +26,73 @@ import { NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
-  dashboardCards?: TransactionDashboardCardsDto; //interface
+export class HomeComponent implements OnInit {
+  dashboardCards?: TransactionDashboardCardsDto;
 
-  // Pie chart data
   pieChartData: any[] = [];
-  view: [number, number] = [500, 350];
+
+  // Responsive chart settings
+  view: [number, number] = [700, 350];
+  showLegend = true;
+  legendPosition: LegendPosition = LegendPosition.Right;
+
+  legendTitle = 'Expenses';
 
   colorScheme = {
     name: 'myScheme',
     selectable: true,
     group: ScaleType.Ordinal,
     domain: [
-      '#4caf50', // green
-      '#f44336', // red
-      '#2196f3', // blue
-      '#ff9800', // orange
-      '#9c27b0', // purple
-      '#00bcd4', // cyan
-      '#e91e63', // pink
-      '#8bc34a', // light green
-      '#ffc107', // amber
-      '#795548', // brown
-      '#607d8b', // blue grey
+      '#4caf50',
+      '#f44336',
+      '#2196f3',
+      '#ff9800',
+      '#9c27b0',
+      '#00bcd4',
+      '#e91e63',
+      '#8bc34a',
+      '#ffc107',
+      '#795548',
+      '#607d8b',
     ],
   };
 
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit(): void {
+    this.updateChartLayout();
     this.loadDashboardCards();
     this.loadDashboardChart();
   }
 
-  chartWidth = window.innerWidth > 1200 ? 1000 : window.innerWidth - 50;
-
   @HostListener('window:resize')
   onResize() {
-    this.chartWidth = window.innerWidth > 1200 ? 1000 : window.innerWidth - 50;
+    this.updateChartLayout();
   }
 
-  // Load dashboard cards
+  updateChartLayout() {
+    const width = window.innerWidth;
+
+    // Desktop
+    if (width >= 1200) {
+      this.view = [900, 400];
+      this.legendPosition = LegendPosition.Right;
+      this.showLegend = true;
+    }
+    // Tablet
+    else if (width >= 768) {
+      this.view = [650, 350];
+      this.legendPosition = LegendPosition.Below;
+      this.showLegend = true;
+    }
+    // Mobile
+    else {
+      this.view = [width - 30, 300];
+      this.legendPosition = LegendPosition.Below;
+      this.showLegend = false;
+    }
+  }
+
   loadDashboardCards() {
     this.transactionService.getDashboardCards().subscribe({
       next: (res) => (this.dashboardCards = res),
@@ -70,11 +100,9 @@ export class HomeComponent {
     });
   }
 
-  // Load pie chart data
   loadDashboardChart() {
     this.transactionService.getDashboardChartCards().subscribe({
       next: (res: DashboardChartDto[]) => {
-        // Convert API data to ngx-charts format with percentage in label
         this.pieChartData = res.map((item) => ({
           name: `${item.category} (${item.percentage}%)`,
           value: item.amount,

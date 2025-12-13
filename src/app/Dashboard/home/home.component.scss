@@ -1,139 +1,175 @@
 .dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 10px;
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 1rem;
 
-  /* ------------------- Cards Section ------------------- */
-  .cards-section {
-    margin-bottom: 3rem;
+  /* ------------------- Cards ------------------- */
+  .stats-card {
+    position: relative;
+    padding: 1.8rem 1.2rem;
+    border-radius: 14px;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    transition: all 0.35s ease;
+    cursor: pointer;
 
-    .stats-card {
-      padding: 20px;
-      text-align: center;
-      border-radius: 16px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      color: white;
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.12),
+        transparent
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-      &:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    &:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+
+      &::after {
+        opacity: 1;
       }
 
       .icon-box {
-        width: 55px;
-        height: 55px;
-        margin: 0 auto 10px auto;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 28px;
-        color: white;
-        transition: transform 0.3s ease;
-      }
-
-      .icon-box:hover {
-        transform: scale(1.1);
-      }
-
-      h5 {
-        margin-top: 10px;
-        font-weight: 500;
-      }
-      h2 {
-        margin-top: 5px;
-        font-weight: 700;
-        font-size: 1.7rem;
+        transform: rotate(8deg) scale(1.15);
       }
     }
 
-    .income-card .icon-box {
-      background-color: #28a745;
+    .icon-box {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      transition: transform 0.35s ease;
     }
-    .expense-card .icon-box {
-      background-color: #dc3545;
+
+    h5 {
+      font-size: 1rem;
+      font-weight: 500;
+      opacity: 0.9;
     }
-    .balance-card .icon-box {
-      background-color: #007bff;
-    }
-    .transaction-card .icon-box {
-      background-color: #6f42c1;
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-top: 4px;
     }
   }
-  /* ------------------- Chart Section ------------------- */
 
-  .chart-section {
-    .pie-chart-card {
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  /* Card color themes */
+  .income-card {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+  }
+  .expense-card {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+  }
+  .balance-card {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+  }
+  .transaction-card {
+    background: linear-gradient(135deg, #9b59b6, #6f42c1);
+  }
+
+  /* ------------------- Chart ------------------- */
+  .pie-chart-card {
+    padding: 2rem;
+    border-radius: 16px;
+    background: #ffffff;
+    overflow: hidden; // 🔴 REQUIRED
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
 
       h4 {
-        text-align: center;
-        margin-bottom: 2rem;
-        font-weight: 500;
         font-size: 1.3rem;
+        font-weight: 500;
         color: #333;
       }
     }
 
     ngx-charts-pie-chart {
+      display: block;
       width: 100%;
-      height: auto;
+      max-width: 100%;
 
-      /* Slice styles */
+      svg {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+      }
+
       .arc {
-        cursor: pointer;
         transition: transform 0.3s ease, opacity 0.3s ease;
       }
 
       .arc:hover {
-        transform: scale(1.05); /* subtle hover zoom for interactivity */
-        opacity: 0.85;
+        transform: scale(1.06);
+        opacity: 0.9;
       }
 
-      /* Slice labels */
       .label text {
-        font-size: 1.1rem !important;
+        font-size: 1rem !important;
         font-weight: 600;
-        fill: #fff !important; /* white for better contrast on colored slices */
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        fill: #fff !important;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.35);
+        text-anchor: middle;
       }
 
-      /* Legend */
+      .legend-wrap {
+        max-width: 100%;
+      }
+
       .legend-label {
-        font-size: 1rem !important;
-        font-weight: 400;
-        fill: #111 !important;
-        max-width: 300px;
+        font-size: 0.95rem !important;
+        font-weight: 500;
+        color: #222;
+        max-width: 100%;
         white-space: normal;
+        word-break: break-word;
       }
     }
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 992px) {
-    ngx-charts-pie-chart {
-      .label text {
-        font-size: 1rem !important;
-      }
-      .legend-label {
-        font-size: 1rem !important;
-        max-width: 200px;
-      }
-    }
-  }
-
+  /* ------------------- Mobile ------------------- */
   @media (max-width: 768px) {
-    ngx-charts-pie-chart {
-      .label text {
-        font-size: 0.95rem !important;
-      }
-      .legend-label {
-        font-size: 0.95rem !important;
-        max-width: 150px;
+    .pie-chart-card {
+      padding: 1.2rem;
+      overflow: hidden;
+
+      ngx-charts-pie-chart {
+        display: flex;
+        justify-content: center;
+
+        svg {
+          max-width: 100%;
+        }
+
+        /* 🔹 Smaller labels to stay inside pie */
+        .label text {
+          font-size: 0.75rem !important;
+        }
+
+        /* 🔹 Legend never pushes width */
+        .legend-wrap {
+          padding: 0 0.5rem;
+        }
+
+        .legend-label {
+          font-size: 0.8rem !important;
+          max-width: 100%;
+        }
       }
     }
   }
