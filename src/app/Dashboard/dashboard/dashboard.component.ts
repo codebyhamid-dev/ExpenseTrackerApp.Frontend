@@ -58,7 +58,6 @@ export class DashboardComponent {
       next: () => {
         localStorage.clear();
         this.router.navigate(['/login']);
-        alert('Logged out successfully.');
       },
       error: (err) => {
         // Even if API fails, force logout on client

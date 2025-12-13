@@ -58,7 +58,6 @@ export class RegisterComponent {
     this.authService.register(dto).subscribe({
       next: () => {
         this.loading = false;
-        alert('User Register successfully!');
         // Navigate to login page after successful registration
         this.router.navigate(['/login']);
       },
