@@ -1,23 +1,130 @@
-<div class="transaction-header row align-items-center gx-2">
-  <!-- Search Box -->
-  <div class="col-12 col-md-8">
-    <input
-      type="text"
-      class="form-control search-box"
-      placeholder="Search transactions by category"
-    />
+<div class="transaction-container">
+  <!-- Header with Search and Button -->
+  <div class="transaction-header row align-items-center g-3 mb-4">
+    <!-- Search Box -->
+    <div class="col-12 col-md-8">
+      <div class="search-wrapper">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input
+          type="text"
+          class="form-control search-box"
+          placeholder="Search transactions by category"
+          (input)="onSearch($event)"
+        />
+      </div>
+    </div>
+
+    <!-- Add Transaction Button -->
+    <div class="col-12 col-md-4">
+      <button
+        mat-raised-button
+        color="primary"
+        class="add-btn w-100 d-flex align-items-center justify-content-center"
+        routerLink="/dashboard/transactions/create"
+      >
+        <mat-icon class="me-2">add</mat-icon>
+        ADD TRANSACTION
+      </button>
+    </div>
   </div>
 
-  <!-- Add Transaction Button -->
-  <div class="col-12 col-md-4 mt-2 mt-md-0">
-    <button
-      mat-raised-button
-      color="primary"
-      class="w-100 d-flex align-items-center justify-content-center"
-      routerLink="/dashboard/transactions/create"
+  <!-- Grid Container -->
+  <div class="grid-wrapper">
+    <ejs-grid
+      #grid
+      [dataSource]="transactions"
+      [allowPaging]="true"
+      [allowSorting]="false"
+      [allowFiltering]="false"
+      [allowResizing]="true"
+      [enableAltRow]="true"
+      [pageSettings]="pageSettings"
+      height="500"
+      class="custom-grid"
     >
-      <mat-icon class="me-1">add</mat-icon>
-      Add Transaction
-    </button>
+      <e-columns>
+        <e-column
+          field="transactionType"
+          headerText="Type"
+          width="100"
+          textAlign="Center"
+          [valueAccessor]="transactionTypeValueAccessor"
+        ></e-column>
+
+        <e-column
+          field="paymentMode"
+          headerText="Payment"
+          width="100"
+          textAlign="Center"
+          [valueAccessor]="paymentModeValueAccessor"
+        ></e-column>
+
+        <!-- Category Column - Center -->
+        <e-column
+          field="category"
+          headerText="Category"
+          width="100"
+          textAlign="Center"
+        ></e-column>
+
+        <!-- Amount Column - Center -->
+        <e-column
+          field="amount"
+          headerText="Amount"
+          width="100"
+          textAlign="Center"
+          format="C2"
+        ></e-column>
+
+        <!-- Description Column - Center -->
+        <e-column
+          field="description"
+          headerText="Description"
+          width="180"
+          textAlign="Center"
+        ></e-column>
+
+        <e-column
+          field="createdAt"
+          headerText="Date"
+          width="120"
+          textAlign="Center"
+          type="date"
+          format="MM/dd/yyyy"
+        ></e-column>
+
+        <!-- Edit Column -->
+        <e-column headerText="Edit" width="100" textAlign="Center">
+          <ng-template #template let-data>
+            <div class="d-flex justify-content-center">
+              <button
+                mat-icon-button
+                color="primary"
+                class="action-btn edit-btn"
+                (click)="editTransaction(data.id)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </e-column>
+
+        <!-- Delete Column -->
+        <e-column headerText="Delete" width="100" textAlign="Center">
+          <ng-template #template let-data>
+            <div class="d-flex justify-content-center">
+              <button
+                mat-icon-button
+                color="warn"
+                class="action-btn delete-btn"
+                (click)="deleteTransaction(data.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </e-column>
+      </e-columns>
+    </ejs-grid>
   </div>
 </div>

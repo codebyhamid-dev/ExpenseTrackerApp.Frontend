@@ -1,36 +1,234 @@
-/* Transaction header spacing */
-.transaction-header {
-  margin-bottom: 16px;
+.transaction-container {
+  padding: 20px;
 }
 
-/* Search Box Styling */
+/* Header Styling */
+.transaction-header {
+  margin-bottom: 20px;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
 .search-box {
   height: 48px;
-  border-radius: 6px;
-  padding: 0 12px;
+  border-radius: 8px;
+  padding: 0 16px 0 44px;
   font-size: 14px;
-  color: #000;
-  border: 1px solid #ced4da;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  background: #fff;
   transition: all 0.3s ease;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: #1976d2;
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+  }
+
+  &::placeholder {
+    color: #666;
+  }
 }
 
-/* Interactive focus effect */
-.search-box:focus {
-  outline: none;
-  border-color: #1976d2;
-  box-shadow: 0 0 6px rgba(25, 118, 210, 0.3);
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 20px;
+  z-index: 2;
 }
 
-/* Placeholder styling */
-.search-box::placeholder {
-  color: #888;
-  opacity: 1;
-}
-
-/* Button styling (unchanged) */
-.transaction-header button {
+/* Button Styling */
+.add-btn {
   height: 48px;
+  border-radius: 8px;
   font-weight: 600;
-  text-transform: uppercase;
-  border-radius: 6px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* Grid Wrapper */
+.grid-wrapper {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+}
+
+/* Grid Styling - ALL COLUMNS CENTERED */
+::ng-deep {
+  .custom-grid {
+    border: none !important;
+
+    /* Fix header and content alignment */
+    .e-gridheader,
+    .e-gridcontent {
+      width: 100% !important;
+    }
+
+    /* Ensure tables align */
+    .e-gridheader .e-table,
+    .e-gridcontent .e-table {
+      width: 100% !important;
+      table-layout: fixed !important;
+      border-collapse: separate !important;
+      border-spacing: 0 !important;
+    }
+
+    /* Header cells - ALL CENTERED */
+    .e-gridheader {
+      background-color: #f5f6fa;
+      border-bottom: 2px solid #e0e0e0;
+
+      .e-headercell {
+        background-color: #f5f6fa !important;
+        border-right: 1px solid #e0e0e0;
+        padding: 0 !important;
+
+        .e-headercelldiv {
+          color: #2e3e4e;
+          font-weight: 600;
+          font-size: 13px;
+          padding: 14px 8px !important;
+          text-align: center !important; /* All headers centered */
+          justify-content: center !important; /* Ensure center alignment */
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      // Hide sort/filter icons
+      .e-sortfilterdiv,
+      .e-filtermenudiv {
+        display: none !important;
+      }
+    }
+
+    /* Content cells - ALL CENTERED */
+    .e-row {
+      border-bottom: 1px solid #f0f0f0;
+
+      .e-rowcell {
+        padding: 14px 8px !important;
+        font-size: 13px;
+        color: #495057;
+        border-right: 1px solid #f0f0f0;
+        text-align: center !important; /* All content centered */
+        vertical-align: middle;
+
+        /* Type column styling */
+        &:first-child {
+          font-weight: 600;
+
+          &:contains("Credit") {
+            color: #2e7d32;
+          }
+
+          &:contains("Debit") {
+            color: #d32f2f;
+          }
+        }
+
+        /* Amount column styling */
+        &:nth-child(4) {
+          font-weight: 600;
+          color: #1976d2;
+        }
+
+        /* Last two columns (Edit/Delete) */
+        &:nth-last-child(2),
+        &:last-child {
+          padding: 10px 8px !important;
+        }
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+
+      /* Alternating row colors */
+      &.e-altrow {
+        background-color: #fafafa !important;
+      }
+
+      &:hover {
+        background-color: #f8f9fa !important;
+      }
+    }
+
+    /* Action buttons */
+    .action-btn {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .edit-btn {
+      background-color: rgba(25, 118, 210, 0.1);
+      color: #1976d2;
+
+      &:hover {
+        background-color: rgba(25, 118, 210, 0.2);
+      }
+    }
+
+    .delete-btn {
+      background-color: rgba(244, 67, 54, 0.1);
+      color: #f44336;
+
+      &:hover {
+        background-color: rgba(244, 67, 54, 0.2);
+      }
+    }
+
+    /* Pager */
+    .e-pager {
+      border-top: 1px solid #e0e0e0;
+      padding: 12px;
+      background-color: #f8f9fa;
+    }
+
+    /* Hide filter bar */
+    .e-gridfilterbar,
+    .e-filterbar,
+    .e-filterbarcell {
+      display: none !important;
+    }
+
+    /* Fix for accessibility text - hide it properly */
+    caption,
+    .e-emptyrow,
+    *[id*="header_table"],
+    *[aria-describedby*="header_table"] {
+      display: none !important;
+      height: 0 !important;
+      width: 0 !important;
+      opacity: 0 !important;
+      position: absolute !important;
+      clip: rect(0, 0, 0, 0) !important;
+    }
+  }
+}
+
+/* Ensure grid container takes full width */
+.grid-wrapper {
+  width: 100%;
+  overflow-x: auto;
 }

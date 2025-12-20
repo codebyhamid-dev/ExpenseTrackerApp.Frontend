@@ -28,3 +28,27 @@ export interface TransactionCreateDto {
   category?: string;
   description?: string;
 }
+export interface TransactionReadDto {
+  userId?: string; // Guid? → string (optional)
+  transactionType: TransactionType; // enum
+  paymentMode: PaymentMode; // enum
+  category?: string;
+  amount: number; // decimal → number
+  description?: string;
+  createdAt: string; // DateTimeOffset → ISO string
+}
+export interface TransactionInputDto {
+  search?: string; // simple text search (category / description)
+  category?: string;
+  minAmount?: number; // decimal? → number?
+  maxAmount?: number;
+  transactionType?: TransactionType; // enum?
+  paymentMode?: PaymentMode; // enum?
+  sortDescending?: boolean; // default true (handled in backend)
+  skipCount?: number; // default 0
+  maxResultCount?: number; // default 10
+}
+export interface PagedResultDto<T> {
+  items: T[]; // List<T>
+  totalCount: number;
+}

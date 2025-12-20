@@ -1,10 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   DashboardChartDto,
+  PagedResultDto,
   TransactionCreateDto,
   TransactionDashboardCardsDto,
+  TransactionInputDto,
+  TransactionReadDto,
 } from '../../interfaces/transactionInterface';
 
 @Injectable({
@@ -33,6 +36,24 @@ export class TransactionService {
     return this.http.post<TransactionCreateDto>(
       `${this.appUrl}add-transaction`,
       data
+    );
+  }
+
+  // Get: /api/Transaction/get-all-transactions
+  getAllTransactions(
+    input: TransactionInputDto
+  ): Observable<PagedResultDto<TransactionReadDto>> {
+    let params = new HttpParams();
+
+    Object.entries(input).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        params = params.set(key, value.toString());
+      }
+    });
+
+    return this.http.get<PagedResultDto<TransactionReadDto>>(
+      `${this.appUrl}get-all-transactions`,
+      { params }
     );
   }
 }
