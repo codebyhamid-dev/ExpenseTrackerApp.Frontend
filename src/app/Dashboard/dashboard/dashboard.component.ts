@@ -33,7 +33,7 @@ export class DashboardComponent {
   ) {}
   ngOnInit() {
     // Get logged-in user name from localStorage
-    this.userName = localStorage.getItem('Name');
+    this.userName = localStorage.getItem('name');
     this.transactionService.getDashboardCards().subscribe({
       next: (res) => {
         this.dashboardCards = res;

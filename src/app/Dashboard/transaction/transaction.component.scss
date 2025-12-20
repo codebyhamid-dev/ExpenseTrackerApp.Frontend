@@ -1,0 +1,36 @@
+/* Transaction header spacing */
+.transaction-header {
+  margin-bottom: 16px;
+}
+
+/* Search Box Styling */
+.search-box {
+  height: 48px;
+  border-radius: 6px;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #000;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+/* Interactive focus effect */
+.search-box:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.3);
+}
+
+/* Placeholder styling */
+.search-box::placeholder {
+  color: #888;
+  opacity: 1;
+}
+
+/* Button styling (unchanged) */
+.transaction-header button {
+  height: 48px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 6px;
+}
