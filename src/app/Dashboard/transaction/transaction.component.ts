@@ -28,6 +28,7 @@ import {
 })
 export class TransactionComponent {
   transactions: TransactionReadDto[] = [];
+  allTransactions: TransactionReadDto[] = []; // ✅ master copy of data
 
   pageSettings = { pageSize: 10, currentPage: 1 };
 
@@ -45,7 +46,8 @@ export class TransactionComponent {
         sortDescending: true,
       })
       .subscribe((res) => {
-        this.transactions = res.items;
+        this.allTransactions = res.items; // ✅ master copy
+        this.transactions = res.items; // ✅ grid data
       });
   }
 
@@ -73,7 +75,13 @@ export class TransactionComponent {
   // Filter search box
   onSearch(event: any) {
     const value = event.target.value.toLowerCase();
-    this.transactions = this.transactions.filter((t) =>
+
+    if (!value) {
+      this.transactions = [...this.allTransactions]; // ✅ reset grid
+      return;
+    }
+
+    this.transactions = this.allTransactions.filter((t) =>
       t.category?.toLowerCase().includes(value)
     );
   }
